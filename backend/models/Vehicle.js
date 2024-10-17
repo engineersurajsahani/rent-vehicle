@@ -1,4 +1,3 @@
-// models/Vehicle.js
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 const VehicleType = require('./VehicleType');

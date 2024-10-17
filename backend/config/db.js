@@ -1,17 +1,14 @@
-// backend/config/db.js
 const { Sequelize } = require('sequelize');
 
-// Initialize sequelize with SQLite
 const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: './database.sqlite', // Path to SQLite database file
+    storage: './database.sqlite', 
 });
 
-// Test the database connection
 const testConnection = async () => {
     try {
         await sequelize.authenticate();
-        console.log('Connection to the database has been established successfully.');
+        console.log('Connected To database...');
     } catch (error) {
         console.error('Unable to connect to the database:', error);
     }

@@ -1,4 +1,3 @@
-// models/Booking.js
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 const Vehicle = require('./Vehicle');
