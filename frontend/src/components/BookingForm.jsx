@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import {
-  Box,
   Button,
   Step,
   StepLabel,
   Stepper,
   Card,
   CardContent,
+  TextField,
+} from "@mui/material";
+import {
+  Box,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
 } from "@mui/material";
 import { InputLabel, Select, MenuItem, Input, Checkbox } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -159,11 +167,8 @@ const BookingForm = () => {
           flexDirection: "column",
           borderRadius: 3,
           boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.1)",
-         
         }}
       >
-        
-
         <div className="flex items-center justify-center pt-2">
           {error && (
             <div style={{ color: "red", padding: "10px", fontSize: "16px" }}>
@@ -175,7 +180,7 @@ const BookingForm = () => {
           <Stepper activeStep={activeStep} alternativeLabel>
             {steps.map((label) => (
               <Step key={label}>
-                <StepLabel >{label}</StepLabel>
+                <StepLabel>{label}</StepLabel>
               </Step>
             ))}
           </Stepper>
@@ -189,35 +194,61 @@ const BookingForm = () => {
                   alignItems: "center",
                   justifyContent: "center",
                   height: "250px",
+                  gap: 2, // Add some gap between input fields for better spacing
+                  backgroundColor: "#f5f5f5", // Light background for contrast
+                  padding: 3,
+                  borderRadius: 2,
+                  boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", // Add subtle shadow for depth
                 }}
               >
-                <div className="w-full mb-6">
-                  <InputLabel htmlFor="first-name">First Name</InputLabel>
-                  <Input
-                  
-                    id="first-name"
-                    aria-describedby="my-helper-text"
-                    value={name.first}
-                    onChange={(e) =>
-                      setName({ ...name, first: e.target.value })
-                    }
-                    required
-                    fullWidth
-                    sx={{ height: "48px", fontSize: "16px" }}
-                  />
-                </div>
-                <div className="w-full mt-6">
-                  <InputLabel htmlFor="last-name">Last Name</InputLabel>
-                  <Input
-                    id="last-name"
-                    aria-describedby="my-helper-text"
-                    value={name.last}
-                    onChange={(e) => setName({ ...name, last: e.target.value })}
-                    required
-                    fullWidth
-                    sx={{ height: "48px", fontSize: "16px" }}
-                  />
-                </div>
+                <TextField
+                  id="first-name"
+                  label="First Name"
+                  variant="outlined"
+                  value={name.first}
+                  onChange={(e) => setName({ ...name, first: e.target.value })}
+                  required
+                  fullWidth
+                  sx={{
+                    backgroundColor: "#fff",
+                    borderRadius: 1,
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderColor: "#ccc",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#888",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#3f51b5", // Change color when focused
+                      },
+                    },
+                  }}
+                />
+                <TextField
+                  id="last-name"
+                  label="Last Name"
+                  variant="outlined"
+                  value={name.last}
+                  onChange={(e) => setName({ ...name, last: e.target.value })}
+                  required
+                  fullWidth
+                  sx={{
+                    backgroundColor: "#fff",
+                    borderRadius: 1,
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderColor: "#ccc",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#888",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#3f51b5", // Change color when focused
+                      },
+                    },
+                  }}
+                />
               </Box>
             )}
             {activeStep === 1 && (
@@ -227,27 +258,50 @@ const BookingForm = () => {
                   justifyContent: "center",
                   alignItems: "center",
                   height: "250px",
+                  backgroundColor: "#f5f5f5", // Light background for better contrast
+                  padding: 3,
+                  borderRadius: 2,
+                  boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", // Subtle shadow for depth
                 }}
               >
-                <div className="mb-6" style={{ width: "80%" }}>
-                  <InputLabel>Number of Wheels:</InputLabel>
-                  <div className="flex items-center gap-6">
-                    <Checkbox
-                      type="radio"
+                <FormControl component="fieldset" sx={{ width: "80%" }}>
+                  <FormLabel
+                    component="legend"
+                    sx={{ fontSize: "1.2rem", marginBottom: 1 }}
+                  >
+                    Number of Wheels:
+                  </FormLabel>
+                  <RadioGroup
+                    row
+                    value={wheels}
+                    onChange={(e) => handleWheelsChange(e.target.value)}
+                    sx={{
+                      gap: 3, // Space between radio buttons
+                      justifyContent: "center",
+                    }}
+                  >
+                    <FormControlLabel
                       value="2"
-                      checked={wheels === "2"}
-                      onChange={() => handleWheelsChange("2")}
-                    />{" "}
-                    2
-                    <Checkbox
-                      type="radio"
+                      control={<Radio sx={{ color: "#3f51b5" }} />}
+                      label="2"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "1rem",
+                        },
+                      }}
+                    />
+                    <FormControlLabel
                       value="4"
-                      checked={wheels === "4"}
-                      onChange={() => handleWheelsChange("4")}
-                    />{" "}
-                    4
-                  </div>
-                </div>
+                      control={<Radio sx={{ color: "#3f51b5" }} />}
+                      label="4"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "1rem",
+                        },
+                      }}
+                    />
+                  </RadioGroup>
+                </FormControl>
               </Box>
             )}
             {activeStep === 2 && (
